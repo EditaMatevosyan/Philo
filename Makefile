@@ -1,30 +1,32 @@
 NAME = philo
 
-CC = CC
-
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=thread
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -Iinc #-g3 -fsanitize=thread
 
 HEADERS = inc/philo.h
 
 SRCS_DIR = src/
-
 OBJS_DIR = objs/
 
-SRCS_NAME = main.c\
-			init_vars.c\
-			simulation.c\
-			checks.c\
-			utils.c\
+SRCS_NAME = main.c \
+			init.c \
+			validation.c \
+			actions.c \
+			ft_atol.c \
+			routine.c \
 
-OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
+OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) -lpthread
+	$(CC) $(CFLAGS) $^ -o $@ -lpthread
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
@@ -33,6 +35,6 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-re: clean all
+re: fclean all
 
 .PHONY: all clean fclean re

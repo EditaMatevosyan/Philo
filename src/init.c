@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 10:36:20 by user              #+#    #+#             */
-/*   Updated: 2025/09/09 15:34:40 by user             ###   ########.fr       */
+/*   Created: 2025/09/08 10:36:20 by edmatevo          #+#    #+#             */
+/*   Updated: 2025/09/10 19:52:10 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int init(int argc, char *argv[], t_data *data)
     }
     else
         data->must_eat = -1;
-    data->dead = 0;    
+    data->dead = 0;
+    data->start_time = get_time_in_ms();    
     return 0;
 }
 
@@ -62,7 +63,7 @@ int init_philos(t_data *data)
     if(!data->philos)
         return 1;
     i = 0;
-    // data->start_time = get_time_in_ms();
+    
     while (i < data->nb_philos)
     {
         data->philos[i].id = i+1;

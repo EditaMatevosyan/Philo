@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 10:18:31 by user              #+#    #+#             */
-/*   Updated: 2025/09/09 15:35:01 by user             ###   ########.fr       */
+/*   Created: 2025/09/08 10:18:31 by edmatevo              #+#    #+#             */
+/*   Updated: 2025/09/10 19:19:20 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,18 @@ int init_mutexes(t_data *data);
 int init_philos(t_data *data);
 int init_all(int argc, char *argv[], t_data *data);
 void cleanup(t_data *data);
+// int start_thread(t_data *data);
+// int join_thread(t_data *data);
+long long get_time_in_ms(void);
+void *philo_routine(void *arg);
+void *monitor_routine(void *arg);
+
+
+void print_action(t_philo *philo, char *msg);
+void take_fork(t_philo *philo);
+void eating(t_philo *philo);
+void thinking(t_philo *philo);
+void sleeping(t_philo *philo);
+
 
 #endif
