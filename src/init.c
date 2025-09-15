@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 10:36:20 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/10 19:52:10 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:50:55 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ void cleanup(t_data *data)
     }
     pthread_mutex_destroy(&data->dead_lock);
     pthread_mutex_destroy(&data->print_lock);
-    free(data);
 }
 

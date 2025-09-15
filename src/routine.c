@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:21:32 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/10 19:51:02 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:12:52 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,31 @@ void *monitor_routine(void *arg)
 {
     t_data *data = (t_data *)arg;
     int i;
+    int all_ate;
 
     while (!data->dead)
     {
         i = 0;
+        all_ate = 1;
         while (i < data->nb_philos && !data->dead)
         {
             if (check_death(&data->philos[i]))
                 return NULL;
+            if (data->must_eat > 0)
+            {
+                pthread_mutex_lock(&data->philos[i].meals_lock);
+                if(data->philos[i].meals_eaten < data->must_eat)
+                    all_ate = 0;
+                pthread_mutex_unlock(&data->philos[i].meals_lock);
+            }
             i++;
+        }
+        if(data->must_eat > 0 && all_ate)
+        {
+            pthread_mutex_lock(&data->dead_lock);
+            data->dead = 1;
+            pthread_mutex_unlock(&data->dead_lock);
+            return NULL;
         }
         usleep(1000); 
     }
