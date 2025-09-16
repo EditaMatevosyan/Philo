@@ -63,6 +63,7 @@ void cleanup(t_data *data);
 long long get_time_in_ms(void);
 void *philo_routine(void *arg);
 void *monitor_routine(void *arg);
+void smart_usleep(t_philo *philo, int time_ms);
 
 
 void print_action(t_philo *philo, char *msg);

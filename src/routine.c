@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:21:32 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/11 16:12:52 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/16 16:44:27 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@ long long get_time_in_ms(void)
     
     gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+void smart_usleep(t_philo *philo, int time_ms)
+{
+    long long start = get_time_in_ms();
+
+    while (get_time_in_ms() - start < time_ms)
+    {
+        pthread_mutex_lock(&philo->data->dead_lock);
+        if (philo->data->dead)
+        {
+            pthread_mutex_unlock(&philo->data->dead_lock);
+            return;
+        }
+        pthread_mutex_unlock(&philo->data->dead_lock);
+        usleep(100); 
+    }
 }
 
 void *philo_routine(void *arg)
@@ -33,6 +50,8 @@ void *philo_routine(void *arg)
         pthread_mutex_unlock(philo->left_fork);
         return NULL;
     }
+    if (philo->id % 2 == 1)
+        usleep(1000);
     while(!philo->data->dead)
     {
         take_fork(philo);
@@ -52,15 +71,13 @@ int check_death(t_philo *philo)
     if (now - philo->last_meal > philo->data->time_to_die)
     {
         pthread_mutex_unlock(&philo->last_meal_lock);
-        pthread_mutex_lock(&philo->data->dead_lock);
+        pthread_mutex_lock(&philo->data->print_lock);
         if (!philo->data->dead) 
         {
+            printf("%lld %d died\n", now - philo->data->start_time, philo->id);
             philo->data->dead = 1;
-            pthread_mutex_unlock(&philo->data->dead_lock);
-            print_action(philo, "died");
         }
-        else
-            pthread_mutex_unlock(&philo->data->dead_lock);
+        pthread_mutex_unlock(&philo->data->print_lock);
         return (1);
     }
     pthread_mutex_unlock(&philo->last_meal_lock);
