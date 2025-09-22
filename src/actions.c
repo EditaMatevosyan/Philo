@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:23:18 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/18 18:45:12 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:07:47 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	eating(t_philo *philo)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meals_lock);
 	print_action(philo, "is eating");
-	smart_usleep(philo, philo->data->time_to_eat);
+	my_usleep(philo, philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
@@ -60,7 +60,7 @@ void	eating(t_philo *philo)
 void	sleeping(t_philo *philo)
 {
 	print_action(philo, "is sleeping");
-	smart_usleep(philo, philo->data->time_to_sleep);
+	my_usleep(philo, philo->data->time_to_sleep);
 }
 
 void	thinking(t_philo *philo)

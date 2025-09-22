@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:21:32 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/22 13:53:31 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:07:23 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long long	get_time_in_ms(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	smart_usleep(t_philo *philo, int time_ms)
+void	my_usleep(t_philo *philo, int time_ms)
 {
 	long long	now;
 
