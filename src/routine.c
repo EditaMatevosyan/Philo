@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:21:32 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/18 19:06:39 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:53:31 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,6 @@ int	check_death(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->last_meal_lock);
 	return (0);
-}
-
-static int	all_philos_full(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->nb_philos)
-	{
-		pthread_mutex_lock(&data->philos[i].meals_lock);
-		if (data->philos[i].meals_eaten < data->must_eat)
-		{
-			pthread_mutex_unlock(&data->philos[i].meals_lock);
-			return (0);
-		}
-		pthread_mutex_unlock(&data->philos[i].meals_lock);
-		i++;
-	}
-	return (1);
 }
 
 void	*monitor_routine(void *arg)

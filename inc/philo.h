@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 10:18:31 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/18 18:48:38 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:53:20 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ long long				get_time_in_ms(void);
 void					*philo_routine(void *arg);
 void					*monitor_routine(void *arg);
 void					smart_usleep(t_philo *philo, int time_ms);
+int						all_philos_full(t_data *data);
 
 void					print_action(t_philo *philo, char *msg);
 void					take_fork(t_philo *philo);

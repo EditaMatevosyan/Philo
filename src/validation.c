@@ -6,7 +6,7 @@
 /*   By: edmatevo <edmatevo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 10:32:34 by edmatevo          #+#    #+#             */
-/*   Updated: 2025/09/18 18:47:44 by edmatevo         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:53:36 by edmatevo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,27 @@ int	validate(int argc, char *argv[])
 		}
 		i++;
 	}
+	return (1);
+}
+
+int	all_philos_full(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philos)
+	{
+		pthread_mutex_lock(&data->philos[i].meals_lock);
+		if (data->philos[i].meals_eaten < data->must_eat)
+		{
+			pthread_mutex_unlock(&data->philos[i].meals_lock);
+			return (0);
+		}
+		pthread_mutex_unlock(&data->philos[i].meals_lock);
+		i++;
+	}
+	pthread_mutex_lock(&data->print_lock);
+	printf("Dinner is over :)\n");
+	pthread_mutex_unlock(&data->print_lock);
 	return (1);
 }
